@@ -1,4 +1,7 @@
 package com.app.dreamcars.pojo;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,6 +17,14 @@ public class usercredentials {
 	
 	@Column(unique=false)
 	String password;
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "UserlikedImages",
+			joinColumns = { @JoinColumn(name = "user_id")},
+			//inverseJoinColumns = { @JoinColumn (name = "car_Name"), @JoinColumn (name = "car_image_url")}
+	        inverseJoinColumns = { @JoinColumn (name = "car_Name")}
+			)
+	private Set<Allcarstable> users = new HashSet();
 	
 	
 	public usercredentials() {

@@ -1,22 +1,31 @@
 package com.app.dreamcars.pojo;
-import javax.persistence.*;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.*;
+//@IdClass(AllcarstableId.class)
 @Entity
 @Table
+//public class Allcarstable implements Serializable{
 public class Allcarstable {
+	
+	@Column(unique=true)
+	private int car_id;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int car_id;
-	
-	@Column(unique=true)
 	String car_Name;
 	
 	@Column(unique=false)
 	String manufacturer;
 	
-	@Column(unique=true)
+//	@Id
+//	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	String car_image_url;
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "users")
+	private Set<usercredentials> cars = new HashSet();
 	
 	public Allcarstable() {
 		// TODO Auto-generated constructor stub
